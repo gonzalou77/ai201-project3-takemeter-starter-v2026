@@ -1,10 +1,9 @@
 # Your label definitions, one per line, as `label: definition`.
 #
-# Copy these from your README so the baseline is judged on exactly the
-# definitions you wrote. baseline.py reads this file.
-#
-# Delete the examples below and put yours in.
+# Copied from the README's Label Taxonomy so baseline.py is judged on exactly
+# the definitions written there. baseline.py reads this file.
 
-analysis: makes an argument backed by a specific, checkable fact
-hot_take: a confident claim with no support offered
-reaction: an immediate response to something that just happened
+problem: reports a current physical symptom such as blood, pain, swelling, wetness, a tear, a prolapse or a blowout
+check: wants a verdict on whether something is okay, normal, safe or possible, and reports no current symptom
+practical: wants information, instructions or a product rather than a verdict
+share: shows a result, story or setup and asks for nothing

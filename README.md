@@ -39,8 +39,12 @@
 
 ## What This Does
 
-<!-- Your community, and what your classifier sorts posts into. Three or four
-     sentences. -->
+r/stretched is a public Reddit community for people stretching their ear
+lobes, septums and other piercings. Almost every post is a question or a
+show-and-tell, and what separates them is whether something is physically wrong
+right now, whether the writer wants a verdict, or whether they just want
+information or are sharing. My classifier sorts each post into one of four
+labels: `problem`, `check`, `practical` or `share`.
 
 
 
@@ -54,33 +58,74 @@
      The decision rule is worth a point on its own and it's the thing most
      people leave out. Every taxonomy has a hardest boundary. Name yours. -->
 
-### `label_one`
+### `problem`
 
-**Definition:**
-
-**Example 1:**
->
-
-**Example 2:**
->
-
-### `label_two`
-
-**Definition:**
+**Definition:** The writer reports a current physical symptom — blood, pain,
+swelling, wetness, a tear, a prolapse or a blowout.
 
 **Example 1:**
->
+> I woke up this morning, take out the jewelry, and there is blood. I feel like
+> this is not normal. What should i do?
 
 **Example 2:**
->
+> my left lobe is sore and stings when cleaning it. No blood, but a small tear,
+> no swelling.
+
+### `check`
+
+**Definition:** The writer wants a verdict — is it okay, normal, safe or
+possible? — and reports no current symptom.
+
+**Example 1:**
+> Just wanting to check if my lobes look ok as they seem to shrink a fair bit
+> when I take jewellery out? They don't feel irriated/painful and I stretch
+> using half sizes.
+
+**Example 2:**
+> Basically im just asking if i have enough space on both ears? Like enough
+> skin? Or would it tear?
+
+### `practical`
+
+**Definition:** The writer wants information, instructions or a product, not a
+verdict.
+
+**Example 1:**
+> Are there any kits I can purchase online because all titanium plugs stop up
+> to 10mm
+
+**Example 2:**
+> I really want to start stretching, but I have no idea what I'm doing. I want
+> to go to either a 6g or a 4g. Please let me know the best and safest way to do
+> it.
+
+### `share`
+
+**Definition:** The writer shows a result, story or setup and asks for
+nothing.
+
+**Example 1:**
+> I finally made it to the end of my stretching journey guys!!! […] I'm
+> officially a 00g 10mm and and I shall stay a 00g 10mm
+
+**Example 2:**
+> Honestly, I checked it with my current setup with dark purple and opal and...
+> I don't hate it, I feel like it has potential to work.
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `problem` and `check`
 
 **The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
+
+If the post reports something physically wrong now — blood, pain, swelling,
+wetness, tearing, a prolapse, a blowout, or a condition that is still present
+(skin that is still thin after a blowout) — it is `problem`. If the writer only
+worries something might be wrong, or asks whether it looks or is okay, and
+reports no symptom, it is `check`. **A mistake the writer admits to is not a
+symptom.** "WAY too fast stretching" says "i am VERY aware of how badely i messed
+up… how cooked am i?" but names no symptom, so it is `check`, even though the
+tone sounds like `problem`.
 
 
 
