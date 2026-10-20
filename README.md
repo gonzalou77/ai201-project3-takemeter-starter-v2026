@@ -203,17 +203,36 @@ No label is above 70%. `practical` is under the 20% floor I set in criterion 4.
 
 ## The Training Run
 
-<!-- Your starting model, your settings, and anything you changed and why. -->
+**Base model:** `distilbert-base-uncased`, fine-tuned for four-way sequence
+classification.
 
-**Base model:**
+**Settings:** 3 epochs, learning rate 2e-5, batch size 16, max length 128
+tokens, seed 42. Trained on CPU (PyTorch 2.14.1+cpu); the run took about 77
+seconds.
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Anything I changed from the defaults, and why:** I left every training
+setting at its default. Two things differ from the starter notebook:
 
-**Anything I changed from the defaults, and why:**
+- `LABELS` is now `problem, check, practical, share`.
+- The 119 synthetic posts in `data/synthetic_posts.csv` are added to the train
+  split after the split is made. I did this because I only have 81 real posts,
+  which is too few to train on. Validation and test are cut from the real posts
+  alone, so synthetic posts never reach a held-out number. `results.json`
+  records `synthetic_in_train: 119` and `test_is_real_only: true`.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+**Split sizes:** The 81 real posts are split 70/15/15, stratified, on seed 42.
+
+| | train | val | test |
+|---|---|---|---|
+| Real posts | 56 | 12 | 13 |
+| Synthetic posts | 119 | 0 | 0 |
+| **Total** | 175 | 12 | 13 |
+
+Per-label counts in the test split: `problem` 3, `check` 5, `practical` 2,
+`share` 3. Every label has fewer than 8 test posts, and `practical` has 2, so a
+per-label score here moves a lot with a single post, and I expect large
+variance across seeds in Unit 6. About two thirds of the training data is
+synthetic, which is another reason to read the held-out numbers carefully.
 
 
 
