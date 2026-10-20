@@ -133,48 +133,71 @@ tone sounds like `problem`.
 
 ## The Dataset
 
-<!-- Where you collected from, how you labelled, your counts, and three hard
-     cases. -->
+**Where the posts came from:** 81 public text posts from r/stretched, copied by
+hand into `labels.csv` with each post's title and body joined into one `text`
+field. That is short of the 200 the brief asks for. To give the model more to
+train on I also have 119 Claude-generated synthetic posts in
+`data/synthetic_posts.csv`. They are **not** in `labels.csv`, they are added to
+the training split only, and they never appear in validation or test, so every
+held-out number is measured on real posts. `results.json` records how many were
+used.
 
-**Where the posts came from:**
-
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**How I labelled them:** All 81 labels were produced by Claude from the
+definitions in this README, as a pre-labelling pass. I did not label a cold set:
+the 20 posts I had set aside to label unaided were labelled by Claude at my
+request, so I have no cold labels, and the `note` column in `labels.csv` says
+"pre-labelled by Claude" on every row. As of this commit I have not yet read and
+corrected them. The synthetic posts were also written by Claude, each with an
+intended label.
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `check` | 29 | 36% |
+| `share` | 21 | 26% |
+| `problem` | 17 | 21% |
+| `practical` | 14 | 17% |
+| **Total** | 81 | 100% |
+
+No label is above 70%. `practical` is under the 20% floor I set in criterion 4.
 
 **Three hard cases**
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
-
 **1.**
-> *The post:*
+> *The post:* "WAY too fast stretching — so first up i wanna say that i am VERY
+> aware of how badely i messed up. second, in two weeks i managed to strech to
+> 10 mm. i dont want to make this long, how cooked am i?"
 >
-> *Could have been:*
+> *Could have been:* `problem` or `check`
 >
-> *I chose, because:*
+> *I chose:* `check`, because the writer admits a mistake but names no symptom.
+> My decision rule says an admitted mistake is not a symptom, even though the
+> tone sounds like `problem`.
 
 **2.**
-> *The post:*
+> *The post:* "UPDATE: I joined the 2in club and got my ear/ear lobe tattooed —
+> I have a down sized plug in at the moment because I got the bottom of my ear
+> lobe tattooed as well and its a little swollen but im PUMPED on the end
+> result"
 >
-> *Could have been:*
+> *Could have been:* `share` or `problem`
 >
-> *I chose, because:*
+> *I chose:* `share`, because the swelling is mentioned in passing and the post
+> is celebrating and asks for nothing. My `problem` definition ("reports a
+> current physical symptom") technically covers it, so the written rule doesn't
+> settle this one. The call I made is that the symptom has to be what the post
+> is about.
 
 **3.**
-> *The post:*
+> *The post:* "Stretch It Body Jewelry restock! — Hey yall! Just in case anyone
+> was in my shoes lately, the stretching kit for 25-30 mm kit is back up!"
 >
-> *Could have been:*
+> *Could have been:* `share` or `practical`
 >
-> *I chose, because:*
+> *I chose:* `share`, because the writer is giving information and asking for
+> none. My `practical` definition is about wanting information or a product, and
+> this post is the other direction, so neither definition fits cleanly.
 
 ---
 
