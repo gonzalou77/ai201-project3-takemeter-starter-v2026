@@ -247,19 +247,44 @@ synthetic, which is another reason to read the held-out numbers carefully.
      workflow and disclosing it costs you nothing. Not disclosing it is the
      problem. -->
 
-**Moment 1**
+**Moment 1 — designing the labels**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I pasted the r/stretched posts I had collected and asked
+  Claude to read them and suggest distinctions I could point at. Claude could
+  not read Reddit itself, so everything it worked from came from my paste.
+- *What came back:* Candidate distinctions with counts, such as whether
+  something is physically wrong now, what kind of question is being asked, and
+  how much detail the post gives. After my first batch of 43 posts it said
+  showcase posts were too rare to be their own label.
+- *What I changed:* I said "not yet, see the updated post list" and had it
+  redo the analysis on all 81 posts. The larger set showed that about 20
+  posts were showcase, so Claude reversed that point and `share` became a
+  label. From there I picked problem vs. check as my hardest boundary, and kept
+  four labels instead of folding `practical` into `check`. Claude drafted the
+  definitions and the decision rule and I accepted them as written.
 
-**Moment 2**
+**Moment 2 — synthetic training posts**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* I had only 81 real posts, so I asked Claude to analyze
+  the whole set and write synthetic posts and titles, then to make 119 more.
+- *What came back:* 119 posts across the four labels in
+  `data/synthetic_posts.csv`, along with a warning that they were cleaner and
+  more separable than the real ones. For example, 95% of its `practical` posts
+  had a question mark, against 43% of the real ones, and it said a model could
+  learn those cues and look better than it is. It advised against putting them
+  in `labels.csv` or the test split.
+- *What I changed:* I asked it to build a hybrid. The synthetic posts are added
+  to the training split only, and validation and test are real posts alone. The
+  notebook change is in `takemeter.ipynb`, and `results.json` records both
+  facts.
 
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:** Every label in `labels.csv` was assigned by
+Claude from my written definitions, including the 20 posts I had reserved to
+label unaided. I asked Claude to label those 20 as well, so I have no cold
+labels, and the `note` column says so on every row. I have not yet read and
+corrected the 81 labels. Claude also wrote all 119 synthetic posts and their
+intended labels. Separately, Claude drafted the five criteria in `criteria.md`
+and their reasoning; I committed them as drafted without changing the numbers.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
