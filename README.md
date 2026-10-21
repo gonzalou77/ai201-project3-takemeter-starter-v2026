@@ -335,22 +335,38 @@ trained model's seed-42 results (accuracy 0.538) and the two baseline scores.
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy |  | 0.538 | 0.385 | 0.385 |  |
+| 2. `problem` recall |  | 0.67 | 1.00 | 1.00 |  |
+| 3. Per-label F1 (`problem` / `check` / `practical` / `share`) |  | 0.80 / 0.33 / 0.33 / 0.67 | 0.75 / 0.00 / 0.40 / 0.00 | 0.55 / 0.00 / 0.57 / 0.00 |  |
+| 4. Label balance in `labels.csv` |  | 36% / 26% / 21% / 17% (`check` / `share` / `problem` / `practical`), the same file for every seed | same | same |  |
+| 5. Agreement with staff on 30 posts |  | not measured yet | not measured yet | not measured yet |  |
+
+Device for all three seeds: `cpu` (PyTorch 2.14.1+cpu), from
+`results_three_seeds_before.json`. Each seed's test split is 13 real posts
+(`problem` 3, `check` 5, `practical` 2, `share` 3); 119 synthetic posts are in
+the training split for every seed.
+
+Spread across the three seeds (from the notebook):
+
+| Measure | Seed 42 | Seed 7 | Seed 2024 | Spread |
+|---|---|---|---|---|
+| Overall accuracy | 0.538 | 0.385 | 0.385 | 0.154 |
+| Macro F1 | 0.533 | 0.287 | 0.279 | 0.254 |
+| F1 — `problem` | 0.800 | 0.750 | 0.545 | 0.255 |
+| F1 — `check` | 0.333 | 0.000 | 0.000 | 0.333 |
+| F1 — `practical` | 0.333 | 0.400 | 0.571 | 0.238 |
+| F1 — `share` | 0.667 | 0.000 | 0.000 | 0.667 |
 
 ### Confusion matrix
 
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
+Seed 42, 13 test posts.
 
-| true \ predicted |  |  |  |
-|---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+| true \ predicted | problem | check | practical | share |
+|---|---|---|---|---|
+| **problem** | 2 | 0 | 0 | 1 |
+| **check** | 0 | 1 | 3 | 1 |
+| **practical** | 0 | 0 | 1 | 1 |
+| **share** | 0 | 0 | 0 | 3 |
 
 **My biggest off-diagonal number, and what it means:**
 <!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
