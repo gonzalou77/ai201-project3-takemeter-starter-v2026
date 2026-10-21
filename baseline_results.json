@@ -1,0 +1,105 @@
+{
+  "model": "facebook/bart-large-mnli",
+  "n": 13,
+  "seed": 42,
+  "held_out": true,
+  "used_definitions": true,
+  "scores": {
+    "n": 13,
+    "accuracy": 0.38461538461538464,
+    "f1_macro": 0.30833333333333335,
+    "per_label": {
+      "check": {
+        "precision": 1.0,
+        "recall": 0.2,
+        "f1": 0.33333333333333337,
+        "support": 5
+      },
+      "practical": {
+        "precision": 0.3333333333333333,
+        "recall": 0.5,
+        "f1": 0.4,
+        "support": 2
+      },
+      "problem": {
+        "precision": 0.3333333333333333,
+        "recall": 1.0,
+        "f1": 0.5,
+        "support": 3
+      },
+      "share": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 3
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "Sizing\nDoes it look my ears are thinning at all on the side? Or is it just my ear shape. 00g. Another question, what size do you think I should go to for my ears? I have no goal size.",
+      "gold": "check",
+      "predicted": "problem"
+    },
+    {
+      "text": "I can\u2019t get to the smaller size\nI got my ear pierce years ago with a 16g. I tried stretching my ear yesterday (with a taper) to a 14g. It worked. Had the jewelry in all day and all night. I woke up this morning, take out the jewelry, and there is blood. I feel like this is not normal. What should i do?",
+      "gold": "problem",
+      "predicted": "problem"
+    },
+    {
+      "text": "septum Stack setup\nCurrently at 6mm Septum, I was able to fit in a 4mm, 3mm and 0.6mm clicker rings in my septum. This is honestly my favorite setup at this current size, fist time stacking and I absolutely loved how it looks.\nI used this setup for half a day then put back my regular 6mm jewelry. Any tips for wearing stacked setup to avoid changing the hole shape? I guess it's pretty obvious right, don't keep it for prolonged hours without switching back to the regular shape, but just in case, is there anything else to look for?",
+      "gold": "practical",
+      "predicted": "practical"
+    },
+    {
+      "text": "Dagger ear weights from RedFernAdornments! My new favorite pieces of jewelry for sure-- ears are at 3/4\"\nSilver plated bronze handles with amethyst blades, obsessed with these <3",
+      "gold": "share",
+      "predicted": "practical"
+    },
+    {
+      "text": "Stretched my septum\nFirst stretch. 4mm now. Ears are 1\u201d 1/2 now. Teardrop plugs from Custom Plugs.",
+      "gold": "share",
+      "predicted": "problem"
+    },
+    {
+      "text": "Stretched lobed getting red and swollen after 12 years ?\nHi,\nI've had my lobe stretched for 12 years (not much, just 8mm). It's been healed for a long long time without any issue, i clean it with soap and water everyday, no issue.\nI got my helix (same ear) pierced 6 months ago. Helix's healing was going fine, until 2 weeks ago it started getting a tiny bit infected, i took care of it and now it's back to healing fine, no sign of infection.\nHowever my stretched lobe started getting \"wet\" (no pus, just clear watery like substance) and hurting and itching. I didn't think much of it but it kept going for a couple of days, to the point i decided to take it out and let it air out. I can't put the plug back in now (too much pain) and it is red and swollen.\nWhat should I do ? I don't have smaller plugs so i can't put a 6mm back in for now, and no shops nearby to get one. How urgent is it to get something back in to prevent it from closing ? Has this ever happened to anyone after such a long time ?\nI was wearing black surgical steel, same thing i had been wearing for years, so i don't get where this is coming from.\nThank you for your help !",
+      "gold": "problem",
+      "predicted": "problem"
+    },
+    {
+      "text": "Should i size up?\nHi! Im currently at a 6mm, and have been for about a year now. 6mm used to be my initial goal, but ive always felt like 8mm would be nice too. Right now im in the middle; some days i am obsessed with how 6mm looks, other days i wished they were a bit bigger.\nHas anyone else experienced this? What did you do? How do i determine what size i like best? What do i do with the 6mm jewelry if i do size up?",
+      "gold": "check",
+      "predicted": "practical"
+    },
+    {
+      "text": "Septum ppiercing\nSo i have stretched mine to 5mm and wear either a 5mm tunnel for work or a 5mm cab out of work. Today I managed to insert 3 rings each over 2mm. Is this normal that a cbb can stretch the fistula more?",
+      "gold": "check",
+      "predicted": "problem"
+    },
+    {
+      "text": "12mm! How do I look?\nGoal size is 16mm but planning to stay here at 12 for a few years!\nDead stretched in .5mm increments with glass plugs\nIt took me 10 months to go from 1.2mm -> 12mm\nInitially pierced with gun at Claire's\nTunnels are from Vital Plugs",
+      "gold": "check",
+      "predicted": "problem"
+    },
+    {
+      "text": "Setup so far\nMy setup feels so bare and boring, I\u2019ve been wearing rings through my conch tunnels but I took most out recently, what can I do to make my setup look better guys",
+      "gold": "practical",
+      "predicted": "problem"
+    },
+    {
+      "text": "Stretched up to 6mm in under a month with previously stretched ears\nSo i stretched up to 8mm about 2 years ago and damaged them so I took them out to let them heal and haven't had any jewellery in them for over a year, I recently started stretching them again and was able to start at 3mm and now have 6mm plugs in which I was able to do with no pain.\nI was just wondering if this is normal and/or safe? I dont want to damage them again so im trying to take it slow but the plugs felt loose very soon after I would put the next sizes in.",
+      "gold": "check",
+      "predicted": "check"
+    },
+    {
+      "text": "Bought a bunch of new jewelry for reaching my goal size (10mm) and they don\u2019t fit :(\nBasically the title. Someone on here posted some beautiful carved glass plugs (the green ones) they bought on Etsy and I went and got some for an upcoming wedding (2nd of October), as I would be at goal size by then. Reached goal size around a week or two ago and the shipping finally arrived yesterday.\nThey\u2019re all too big.\nI\u2019m so sad.\nI\u2019ll stretch more, but I won\u2019t make it in time for the wedding as I don\u2019t even have a dead stretching set for more than 10mm.\nI ordered some more simple tunnels as an emergency plan, thinking the plugs wouldn\u2019t arrive on time, guess I\u2019ll wear those, but I\u2019m still sad man.",
+      "gold": "share",
+      "predicted": "problem"
+    },
+    {
+      "text": "Reverse blowout\nhey yall,\ni went from a 6g to 4 but the minute i put them in i went back to 6 since it hurt. does anyone have recommendations on treating it besides jojoba oil and sea salt spray (been already doing) thanks yall :)",
+      "gold": "problem",
+      "predicted": "problem"
+    }
+  ]
+}

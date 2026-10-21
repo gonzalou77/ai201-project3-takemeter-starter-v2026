@@ -300,14 +300,25 @@ and their reasoning; I committed them as drafted without changing the numbers.
 
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.385 | 0.538 | +0.154 |
+| Macro F1 | 0.308 | 0.533 | +0.225 |
+| F1 — `check` | 0.333 | 0.333 | -0.000 |
+| F1 — `practical` | 0.400 | 0.333 | -0.067 |
+| F1 — `problem` | 0.500 | 0.800 | +0.300 |
+| F1 — `share` | 0.000 | 0.667 | +0.667 |
 
-**What I predicted before I looked:**
-<!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
-     prediction made afterwards isn't one. -->
+Both models were scored on the same 13 real posts in `test_split.csv` (seed 42).
+The baseline is `facebook/bart-large-mnli` using my definitions from
+`label_definitions.txt`. A second run with bare label names scored accuracy
+0.308 and macro F1 0.216 (`baseline_bare_names.json`), so my definitions were
+worth about 8 accuracy points, which is one post out of 13. With 2 to 5 test
+posts per label, none of the per-label gaps are reliable.
+
+**What I predicted before I looked:** "I dont think the model will work very
+well and may require some necessary work over on the training data." This is a
+general prediction, not a claim about which label the trained model would win
+on. It was not written blind: before I wrote it I had already been shown the
+trained model's seed-42 results (accuracy 0.538) and the two baseline scores.
 
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
