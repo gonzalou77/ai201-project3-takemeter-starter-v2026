@@ -210,8 +210,10 @@ classification.
 tokens, seed 42. Trained on CPU (PyTorch 2.14.1+cpu); the run took about 77
 seconds.
 
-**Anything I changed from the defaults, and why:** I left every training
-setting at its default. Two things differ from the starter notebook:
+**Anything I changed from the defaults, and why:** For the Unit 5 run I left
+every training setting at its default. (In Unit 6 I changed epochs from 3 to 10
+as my one improvement; see The Improvement.) Two things differ from the starter
+notebook:
 
 - `LABELS` is now `problem, check, practical, share`.
 - The 119 synthetic posts in `data/synthetic_posts.csv` are added to the train
@@ -510,24 +512,54 @@ consistency of my 81 labels as untested.
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** One training setting: `EPOCHS` from 3 to 10, in
+`takemeter.ipynb`. Nothing else changed: the same four labels, the same 81 real
+posts, the same 119 synthetic posts in training only, learning rate 2e-5, batch
+size 16, and the same seeds 42, 7 and 2024, with `RUN_LABEL = "after"`. I tried
+10 once, before seeing any after numbers, and tried no other value, so it was
+not tuned against the test set. The number 10 is my choice and somewhat
+arbitrary.
 
-**Which diagnosis pointed at it:**
+**Which diagnosis pointed at it:** The criterion 1 diagnosis. The final training
+loss in the before run was 1.288, 1.328 and 1.281 against 1.386 for guessing
+uniformly, after only 33 optimiser steps, so the model had barely trained. I
+picked this over relabelling because the agreement report couldn't point at a
+boundary I had applied inconsistently, and over adding posts because I could
+not collect more real ones.
 
 ### Run Log — After
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | at least 0.65 on every seed | 0.846 | 0.846 | 0.846 | MET |
+| 2. `problem` recall | at least 0.70 on every seed | 0.67 | 0.67 | 1.00 | MISSED |
+| 3. Per-label F1 (`problem` / `check` / `practical` / `share`) | at least 0.55 for `problem`, `check` and `share`; at least 0.40 for `practical`, on every seed | 0.80 / 0.89 / 0.80 / 0.86 | 0.80 / 0.91 / 0.80 / 0.80 | 0.75 / 0.75 / 1.00 / 1.00 | MET |
+| 4. Label balance in `labels.csv` | no label under 20% or over 40% | 36% / 26% / 21% / 17% (`check` / `share` / `problem` / `practical`), unchanged | same | same | MISSED |
+| 5. Agreement with staff on 30 posts | at least 21 of 30 | 30 of 30, unchanged | same | same | MET, with a caveat (see Agreement Report) |
 
-**Did it help, and how do I know:**
+Device for all three seeds: `cpu`. Final training loss was 0.674, 0.772 and
+0.726. Macro F1 was 0.837, 0.827 and 0.875. Each seed's test split is 13 real
+posts, as before. The raw numbers are in `results_three_seeds_after.json`.
 
-<!-- If it didn't, say so. Relabelling that didn't help is a genuinely
-     interesting result and earns full credit. -->
+Seed 42 confusion matrix, after:
+
+| true \ predicted | problem | check | practical | share |
+|---|---|---|---|---|
+| **problem** | 2 | 0 | 0 | 1 |
+| **check** | 0 | 4 | 1 | 0 |
+| **practical** | 0 | 0 | 2 | 0 |
+| **share** | 0 | 0 | 0 | 3 |
+
+**Did it help, and how do I know:** Yes. Accuracy went from 0.538, 0.385 and
+0.385 to 0.846 on all three seeds, macro F1 from 0.533, 0.287 and 0.279 to
+0.837, 0.827 and 0.875, and criteria 1 and 3 went from MISSED to MET. The model
+now predicts all four labels on every seed, where before it never predicted
+`check` or `share` on seeds 7 and 2024. Criteria 2 and 4 are still missed,
+because `problem` recall is 2 of 3 on two seeds and I did not touch the data. I
+would not read 0.846 as a precise number: the test split is 13 posts, so one post
+is 7.7 points and 11 of 13 could plausibly be anywhere from about 0.7 to 1.0 on
+a different draw. I also can't say how much of the gain depends on the synthetic
+posts, since they were in training both times.
 
 
 
@@ -537,11 +569,36 @@ consistency of my 81 labels as untested.
 
 <!-- For each criterion still missed: what you'd do, and why you stopped. -->
 
+**Criterion 2 (`problem` recall).** Still missed: 0.67, 0.67 and 1.00. I would
+collect more real `problem` posts so the test split holds more than 3 of them,
+because as it stands one post decides whether the target is met. I stopped
+because I only have 81 real posts and could not read Reddit to collect more. I
+would also rewrite the criterion, since "always answer `problem`" would meet it.
 
+**Criterion 4 (label balance).** Still missed: `practical` is 14 of 81, 17%.
+Three more real `practical` posts would bring it to about 20%. I stopped
+because I haven't collected any more real posts, and I didn't want to fix it
+with synthetic ones, since the criterion is about `labels.csv`.
+
+**Criterion 5 (agreement, MET with a caveat).** The 30 staff-set labels were
+Claude's, so this doesn't show I apply a rule consistently. What I would do is
+label the 30 myself, or get a different set from my TF. I stopped because the
+agreement run had already shown the answer, so a fresh attempt on the same set
+would not be independent.
+
+**Other limits I know about:** the 81 labels are Claude's pre-labels and I have
+not reviewed them. The held-out set is 13 posts, so every score here has a wide
+error bar. The model trains on 119 synthetic posts and I haven't tested a run
+without them.
 
 **The gap between what I meant my labels to capture and what the model
-learned:**
-<!-- Two sentences. Your confusion matrix is the evidence. -->
+learned:** I meant `problem` to capture a current physical symptom and `check`
+to capture a verdict with no symptom, and the seed 42 matrix now has 2 of 3
+`problem` and 4 of 5 `check` posts right. The one error on each is a `problem`
+post called `share` and a `check` post called `practical`, which looks like the
+boundary being learned. With so few test posts and unreviewed labels, though, I
+can't tell whether the model learned my definitions or the way Claude applied
+them.
 
 
 
