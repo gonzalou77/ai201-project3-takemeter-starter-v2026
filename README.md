@@ -339,7 +339,7 @@ trained model's seed-42 results (accuracy 0.538) and the two baseline scores.
 | 2. `problem` recall | at least 0.70 on every seed | 0.67 | 1.00 | 1.00 | MISSED |
 | 3. Per-label F1 (`problem` / `check` / `practical` / `share`) | at least 0.55 for `problem`, `check` and `share`; at least 0.40 for `practical`, on every seed | 0.80 / 0.33 / 0.33 / 0.67 | 0.75 / 0.00 / 0.40 / 0.00 | 0.55 / 0.00 / 0.57 / 0.00 | MISSED |
 | 4. Label balance in `labels.csv` | no label under 20% or over 40% | 36% / 26% / 21% / 17% (`check` / `share` / `problem` / `practical`), the same file for every seed | same | same | MISSED |
-| 5. Agreement with staff on 30 posts | at least 21 of 30 | not measured yet | not measured yet | not measured yet | pending |
+| 5. Agreement with staff on 30 posts | at least 21 of 30 | 30 of 30 (not seed-dependent) | same | same | MET, with a caveat (see Agreement Report) |
 
 Device for all three seeds: `cpu` (PyTorch 2.14.1+cpu), from
 `results_three_seeds_before.json`. Each seed's test split is 13 real posts
@@ -396,7 +396,7 @@ find, not as a stable `check`/`practical` confusion.
 | 2 | `problem` recall | at least 0.70 on every seed | MISSED | 0.67 on seed 42, which is 2 of 3 test posts, then 1.00 and 1.00. It held on two seeds but not seed 42, so it fails the all-three-seeds rule. |
 | 3 | Per-label F1 | at least 0.55 for `problem`, `check` and `share`; at least 0.40 for `practical` | MISSED | On seed 42, `check` is 0.33 and `practical` is 0.33. On seeds 7 and 2024, `check` and `share` are both 0.00. No seed met the target for every label. |
 | 4 | Label balance | no label under 20% or over 40% of `labels.csv` | MISSED | `practical` is 17% (14 of 81). The other three are inside the range at 36%, 26% and 21%. This is measured on `labels.csv` only; the synthetic posts are not in that file. |
-| 5 | Agreement with staff | at least 21 of 30 | pending | I haven't labelled the staff set yet. |
+| 5 | Agreement with staff | at least 21 of 30 | MET, with a caveat | 30 of 30 matched. But the 30 labels were assigned by Claude in id blocks, not by me, so this doesn't show that I applied the rule consistently. See the Agreement Report. |
 
 **Diagnoses**
 
@@ -421,7 +421,18 @@ find, not as a stable `check`/`practical` confusion.
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
+**Agreement rate:** 30 / 30 = 100%
+
+**Who labelled the 30, and why that matters:** The 30 labels in
+`my_staff_labels.csv` were assigned by Claude under the staff taxonomy, not by
+me, and the `note` column says so on every row. Claude assigned them in id blocks
+(sp_001–010 `analysis`, sp_011–020 `hot_take`, sp_021–030 `reaction`) after
+noticing that `staff_posts.csv` is sorted that way, so it also had the layout to
+go on. A 100% match is what that would produce, and it is not independent
+evidence about how well *I* apply a written rule. It also leaves me with no
+direct measure of whether my own `labels.csv` labels were consistent, which is
+what this report is meant to tell me. I am not claiming the set was easy or the
+staff rules are tight, only that this run can't say.
 
 <!-- Nobody grades this number. A 60% who argues every disagreement from the
      stated rules beats a 95% who wrote "staff was right" nine times. Several
@@ -443,26 +454,14 @@ find, not as a stable `check`/`practical` confusion.
      written rule two different ways on 30 posts, that is direct evidence about
      what you did across your own 200. -->
 
-**1.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
+There were no disagreements, so there is nothing to sort into piles (a), (b) or
+(c). `agreement_results.json` records 30 agreed and 0 disagreed.
 
-**2.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
-
-**What the pattern in my disagreements tells me:**
-
+**What the pattern in my disagreements tells me:** With no disagreements there
+is no pattern to read. The two things I can say are that the result doesn't tell
+me my own labelling was consistent, and that it doesn't help me separate a
+labelling problem from a model problem in my diagnoses. I should treat the
+consistency of my 81 labels as untested.
 
 
 ---
