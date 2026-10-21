@@ -335,11 +335,11 @@ trained model's seed-42 results (accuracy 0.538) and the two baseline scores.
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1. Overall accuracy |  | 0.538 | 0.385 | 0.385 |  |
-| 2. `problem` recall |  | 0.67 | 1.00 | 1.00 |  |
-| 3. Per-label F1 (`problem` / `check` / `practical` / `share`) |  | 0.80 / 0.33 / 0.33 / 0.67 | 0.75 / 0.00 / 0.40 / 0.00 | 0.55 / 0.00 / 0.57 / 0.00 |  |
-| 4. Label balance in `labels.csv` |  | 36% / 26% / 21% / 17% (`check` / `share` / `problem` / `practical`), the same file for every seed | same | same |  |
-| 5. Agreement with staff on 30 posts |  | not measured yet | not measured yet | not measured yet |  |
+| 1. Overall accuracy | at least 0.65 on every seed | 0.538 | 0.385 | 0.385 | MISSED |
+| 2. `problem` recall | at least 0.70 on every seed | 0.67 | 1.00 | 1.00 | MISSED |
+| 3. Per-label F1 (`problem` / `check` / `practical` / `share`) | at least 0.55 for `problem`, `check` and `share`; at least 0.40 for `practical`, on every seed | 0.80 / 0.33 / 0.33 / 0.67 | 0.75 / 0.00 / 0.40 / 0.00 | 0.55 / 0.00 / 0.57 / 0.00 | MISSED |
+| 4. Label balance in `labels.csv` | no label under 20% or over 40% | 36% / 26% / 21% / 17% (`check` / `share` / `problem` / `practical`), the same file for every seed | same | same | MISSED |
+| 5. Agreement with staff on 30 posts | at least 21 of 30 | not measured yet | not measured yet | not measured yet | pending |
 
 Device for all three seeds: `cpu` (PyTorch 2.14.1+cpu), from
 `results_three_seeds_before.json`. Each seed's test split is 13 real posts
@@ -373,6 +373,14 @@ Seed 42, 13 test posts.
      direction. "7 real analysis posts were called hot_take and only 3 went the
      other way" is a direction, not just an error rate. -->
 
+On seed 42, 3 of the 5 real `check` posts were called `practical` and none of
+the `practical` posts were called `check`, so the model has not learned the
+boundary between asking for a verdict and asking for information, and it leans
+toward `practical`. That is a single seed with only 2 `practical` posts in the
+test split, and on seeds 7 and 2024 the `check` posts were called `problem` and
+`practical` instead, so I read it as `check` being the label the model cannot
+find, not as a stable `check`/`practical` confusion.
+
 
 
 ---
@@ -384,11 +392,11 @@ Seed 42, 13 test posts.
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | at least 0.65 on every seed | MISSED | 0.538, 0.385 and 0.385. Below 0.65 on all three seeds. |
+| 2 | `problem` recall | at least 0.70 on every seed | MISSED | 0.67 on seed 42, which is 2 of 3 test posts, then 1.00 and 1.00. It held on two seeds but not seed 42, so it fails the all-three-seeds rule. |
+| 3 | Per-label F1 | at least 0.55 for `problem`, `check` and `share`; at least 0.40 for `practical` | MISSED | On seed 42, `check` is 0.33 and `practical` is 0.33. On seeds 7 and 2024, `check` and `share` are both 0.00. No seed met the target for every label. |
+| 4 | Label balance | no label under 20% or over 40% of `labels.csv` | MISSED | `practical` is 17% (14 of 81). The other three are inside the range at 36%, 26% and 21%. This is measured on `labels.csv` only; the synthetic posts are not in that file. |
+| 5 | Agreement with staff | at least 21 of 30 | pending | I haven't labelled the staff set yet. |
 
 **Diagnoses**
 
