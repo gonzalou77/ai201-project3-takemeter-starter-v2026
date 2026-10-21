@@ -409,6 +409,48 @@ find, not as a stable `check`/`practical` confusion.
      have that can tell a LABELLING problem from a MODEL problem, and this
      section is graded on whether you used it that way. -->
 
+**What the agreement report can and can't tell me here.** It can't separate a
+labelling problem from a model problem for me, because the 30 labels were
+Claude's, not mine (see the Agreement Report). So the evidence below comes from
+the training logs, the predicted-class counts per seed, and the label counts,
+and I have not tested whether my own 81 labels were consistent. They are also
+unreviewed pre-labels, which is a second reason to be careful with any claim
+that the labels are fine.
+
+**Criterion 1 (accuracy, MISSED on all three seeds).** Cause: the model barely
+trained, and I can't tell whether that is too few real examples or a task out
+of reach at this training budget. Evidence: the final training loss was 1.288,
+1.328 and 1.281 on seeds 42, 7 and 2024, against 1.386 for guessing uniformly
+among four labels, and validation accuracy stayed between 0.25 and 0.42 on every
+epoch. Three epochs of about 11 steps each is 33 optimiser steps. On top of that
+the test split is 13 posts, so one post moves accuracy by 7.7 points.
+
+**Criterion 2 (`problem` recall, MISSED on seed 42 only).** Cause: partly a test
+split too small to measure, partly a model that guesses `problem` too often.
+Evidence: seed 42's 0.67 is 2 of 3 `problem` posts, so one post decides it. On
+seeds 7 and 2024 recall is 1.00, but the model called 5 and 8 of the 13 posts
+`problem`, with precision of only 0.60 and 0.38, so those passes come from
+over-predicting the label and do not show it was learned. The criterion as
+written can be met by always answering `problem`, which is a weakness in how I
+set it.
+
+**Criterion 3 (per-label F1, MISSED on every seed).** Cause: the model collapsed
+onto two labels on two of the seeds, and `check` is a hard pair with
+`practical`. Evidence: on seeds 7 and 2024 the model never predicted `check` or
+`share` at all (0 of 13 each), so both score F1 0.00. On seed 42 it predicted
+`check` once, and 3 of the 5 real `check` posts went to `practical`, which is
+the pair my decision rule was hardest to apply to. `practical` has only 2 test
+posts, so its F1 of 0.33 to 0.57 swings with one post. I have a hypothesis that
+the synthetic posts taught it cues that real posts don't share (95% of my
+synthetic `practical` posts contain a question mark against 43% of the real
+ones, and they are far shorter), but I haven't tested it, for example by
+training with `USE_SYNTHETIC = False`.
+
+**Criterion 4 (label balance, MISSED).** Cause: too few examples of
+`practical`. Evidence: `practical` is 14 of 81 posts, 17%, against my 20% floor.
+I did not collect more real posts, so the shortfall is mine. It also explains
+why `practical` has only 2 posts in the test split.
+
 
 
 ---
