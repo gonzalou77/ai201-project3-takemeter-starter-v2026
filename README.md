@@ -288,6 +288,30 @@ corrected the 81 labels. Claude also wrote all 119 synthetic posts and their
 intended labels. Separately, Claude drafted the five criteria in `criteria.md`
 and their reasoning; I committed them as drafted without changing the numbers.
 
+**Unit 6 additions.** Claude did most of the analysis work this unit, and I want
+that to be clear:
+
+- **Spotting the pattern in my errors.** I asked Claude to analyse the runs.
+  It pulled the per-epoch training losses from the logs and counted which
+  labels the model predicted on each seed. That is where the two findings in my
+  diagnoses come from: the final training loss was barely below chance
+  (1.28 to 1.33 against 1.386), and on seeds 7 and 2024 the model never
+  predicted `check` or `share`. It also drafted the verdicts, the diagnoses, the
+  sentence on my biggest confusion, and the What's Still Broken section. I
+  asked for them and have not rewritten them.
+- **Choosing the improvement.** Claude recommended changing the epochs, because
+  that is what the training-loss evidence pointed at, and picked 10. I agreed and
+  asked it to run it. It ran the baseline, the three-seed runs before and after,
+  and the comparison tables.
+- **The staff-set labels.** At my request Claude labelled all 30 posts in
+  `my_staff_labels.csv`, so the 100% agreement measures Claude and not me, and
+  the Agreement Report says that. Claude also warned me that this removes the
+  evidence the exercise was meant to give me, and I chose to leave the README as
+  it is.
+- **What I wrote myself.** My Baseline vs. Trained prediction is my own
+  wording, though I had already seen the trained seed-42 numbers when I wrote
+  it, and the README says so.
+
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
      Don't fill these in during unit 5.
